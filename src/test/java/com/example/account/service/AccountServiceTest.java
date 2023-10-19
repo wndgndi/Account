@@ -11,7 +11,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import com.example.account.domain.Account;
-import com.example.account.domain.AccountStatus;
+import com.example.account.type.AccountStatus;
 import com.example.account.repository.AccountRepository;
 import java.util.Optional;
 import org.junit.jupiter.api.DisplayName;
@@ -67,7 +67,7 @@ class AccountServiceTest {
     @Test
     @DisplayName("Test 이름 변경")
     void testGetAccount() {
-        accountService.createAccount();
+        accountService.createAccount(1L, 100L);
         Account account = accountService.getAccount(1L);
 
         assertEquals("40000", account.getAccountNumber());
@@ -76,7 +76,7 @@ class AccountServiceTest {
 
     @Test
     void testGetAccount2() {
-        accountService.createAccount();
+        accountService.createAccount(2L, 100L);
         Account account = accountService.getAccount(2L);
 
         assertEquals("40000", account.getAccountNumber());

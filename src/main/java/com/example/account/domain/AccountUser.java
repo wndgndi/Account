@@ -1,15 +1,10 @@
 package com.example.account.domain;
 
-import com.example.account.type.AccountStatus;
 import java.time.LocalDateTime;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -21,26 +16,17 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-public class Account {
+public class AccountUser {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    @GeneratedValue
+    private Long id;
 
-    @ManyToOne
-    private AccountUser accountUser;
-
-    @Enumerated(EnumType.STRING)
-    private AccountStatus accountStatus;
-    private String accountNumber;
-    private Long balance;
-
-    private LocalDateTime registeredAt;
-    private LocalDateTime unRegisteredAt;
+    private String name;
 
     @CreatedDate
     private LocalDateTime createdAt;

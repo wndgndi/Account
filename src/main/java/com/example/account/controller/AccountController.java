@@ -18,15 +18,15 @@ public class AccountController {
     private final AccountService accountService;
     private final RedisTestService redisTestService;
 
+    @PostMapping("/account")
+    public CreateAccount.Response createAccount(@RequestBody @Valid CreateAccount.Request request) {
+        return CreateAccount.Response
+            .from(accountService.createAccount(request.getUserId(), request.getInitialBalance()));
+    }
+
     @GetMapping("/get-lock")
     public String getLock() {
         return redisTestService.getLock();
-    }
-
-    @PostMapping("/account")
-    public String createAccount(@RequestBody @Valid CreateAccount.Request request) {
-        accountService.createAccount();
-        return "success";
     }
 
     @GetMapping("/account/{id}")
