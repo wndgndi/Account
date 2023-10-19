@@ -11,7 +11,6 @@ import com.example.account.repository.AccountUserRepository;
 import com.example.account.type.ErrorCode;
 import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.internal.build.AllowPrintStacktrace;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
