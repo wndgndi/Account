@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class TransactionController {
     private final TransactionService transactionService;
 
-    @PostMapping("/transaction/user")
+    @PostMapping("/transaction/use")
     public UseBalance.Response useBalance(
         @Valid @RequestBody UseBalance.Request request
     ) {
