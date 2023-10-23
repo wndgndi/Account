@@ -329,7 +329,7 @@ class TransactionServiceTest {
 
     @Test
     @DisplayName("해당 계좌 없음 - 잔액 사용 취소 실패")
-    void cancelTransactionFailed_AccountNotFound() {
+    void cancelBalanceFailed_AccountNotFound() {
         // Given
         given(transactionRepository.findByTransactionId(anyString()))
             .willReturn(Optional.of(Transaction.builder().build()));
@@ -347,7 +347,7 @@ class TransactionServiceTest {
 
     @Test
     @DisplayName("원 사용 거래 없음 - 잔액 사용 취소 실패")
-    void cancelTransactionFailed_TransactionNotFound() {
+    void cancelBalanceFailed_TransactionNotFound() {
         // Given
         given(transactionRepository.findByTransactionId(anyString()))
             .willReturn(Optional.empty());
@@ -362,7 +362,7 @@ class TransactionServiceTest {
 
     @Test
     @DisplayName("거래와 계좌가 매칭 실패 - 잔액 사용 취소 실패")
-    void cancelTransactionFailed_userUnMatch() {
+    void cancelBalanceFailed_userUnMatch() {
         // Given
         AccountUser user = AccountUser.builder()
             .id(12L)
@@ -411,7 +411,7 @@ class TransactionServiceTest {
 
     @Test
     @DisplayName("거래금액과 취소금액이 다름 - 잔액 사용 취소 실패")
-    void cancelTransactionFailed_CacelMustFully() {
+    void cancelBalanceFailed_CancelMustFully() {
         // Given
         AccountUser user = AccountUser.builder()
             .id(12L)
@@ -452,7 +452,7 @@ class TransactionServiceTest {
 
     @Test
     @DisplayName("취소는 1년까지만 가능 - 잔액 사용 취소 실패")
-    void cancelTransactionFailed_TooOldOrder() {
+    void cancelBalanceFailed_TooOldOrder() {
         // Given
         AccountUser user = AccountUser.builder()
             .id(12L)
