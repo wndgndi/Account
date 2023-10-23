@@ -32,7 +32,7 @@ public class AccountController {
     }
 
     @DeleteMapping("/account")
-    public DeleteAccount.Response createAccount(@RequestBody @Valid DeleteAccount.Request request) {
+    public DeleteAccount.Response deleteAccount(@RequestBody @Valid DeleteAccount.Request request) {
         return DeleteAccount.Response
             .from(accountService.deleteAccount(request.getUserId(), request.getAccountNumber()));
     }
