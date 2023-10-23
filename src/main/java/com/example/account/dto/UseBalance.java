@@ -1,5 +1,6 @@
 package com.example.account.dto;
 
+import com.example.account.aop.AccountLockIdInterface;
 import com.example.account.type.TransactionResultType;
 import java.time.LocalDateTime;
 import javax.validation.constraints.Max;
@@ -19,7 +20,7 @@ public class UseBalance {
     @Setter
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class Request {
+    public static class Request implements AccountLockIdInterface {
 
         @NotNull
         @Min(1)

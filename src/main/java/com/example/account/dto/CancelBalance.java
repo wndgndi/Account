@@ -1,5 +1,6 @@
 package com.example.account.dto;
 
+import com.example.account.aop.AccountLockIdInterface;
 import com.example.account.type.TransactionResultType;
 import java.time.LocalDateTime;
 import javax.validation.constraints.Max;
@@ -39,7 +40,7 @@ public class CancelBalance {
     @NoArgsConstructor
     @AllArgsConstructor
     @Builder
-    public static class Response {
+    public static class Response implements AccountLockIdInterface {
 
         private String accountNumber;
         private TransactionResultType transactionResult;
