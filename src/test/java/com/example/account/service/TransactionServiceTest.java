@@ -30,7 +30,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
-import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -490,5 +489,58 @@ class TransactionServiceTest {
 
         // then
         assertEquals(ErrorCode.TOO_OLD_ORDER_TO_CANCEL, exception.getErrorCode());
+    }
+
+    @Test
+    void successQueryTransaction() {
+        // Given
+        AccountUser user = AccountUser.builder()
+            .id(12L)
+            .name("Dooli")
+            .build();
+
+        Account account = Account.builder()
+            .id(1L)
+            .accountUser(user)
+            .accountStatus(IN_USE)
+            .balance(10000L)
+            .accountNumber("1000000012")
+            .build();
+
+        Transaction transaction = Transaction.builder()
+            .account(account)
+            .transactionType(USE)
+            .transactionResultType(S)
+            .transactionId("transactionId")
+            .transactedAt(LocalDateTime.now().minusYears(1).minusDays(1))
+            .amount(CANCEL_AMOUNT)
+            .balanceSnapshot(9000L)
+            .build();
+
+        given(transactionRepository.findByTransactionId(anyString()))
+            .willReturn(Optional.of(transaction));
+
+        // When
+        TransactionDto transactionDto = transactionService.queryTransaction("trxId");
+        // Then
+        assertEquals(USE, transactionDto.getTransactionType());
+        assertEquals(S, transactionDto.getTransactionResultType());
+        assertEquals(CANCEL_AMOUNT, transactionDto.getAmount());
+        assertEquals("transactionId", transactionDto.getTransactionId());
+    }
+
+    @Test
+    @DisplayName("원거래 없음 - 거래 조회 실패")
+    void queryTransaction_TransactionNotFound() {
+        // Given
+        given(transactionRepository.findByTransactionId(anyString()))
+            .willReturn(Optional.empty());
+
+        // When
+        AccountException exception = assertThrows(AccountException.class,
+            () -> transactionService.queryTransaction("transactionId"));
+
+        // Then
+        assertEquals(ErrorCode.TRANSACTION_NOT_FOUND, exception.getErrorCode());
     }
 }
